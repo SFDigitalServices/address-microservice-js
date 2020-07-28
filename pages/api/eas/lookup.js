@@ -1,9 +1,9 @@
-const { apiHandler } = require('../../../lib/handlers')
+const { cors, asyncJsonHandler} = require('../../../lib/handlers')
 const axios = require('axios');
 
-module.exports = apiHandler((req, res) => {
+module.exports = cors(asyncJsonHandler((req, res) => {
   return doLookup(req.query)
-})
+}))
 
 async function doLookup(params) {
   EAS_API_URL = process.env.EAS_API_URL
