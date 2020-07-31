@@ -23,7 +23,10 @@ async function doLookup (params) {
     .then(response => {
       return response.data
     })
-    .catch(error => console.log('Error', error))
+    .catch(error => {
+      console.log('Error', error)
+      throw Error(error)
+    })
 
   return { items: data }
 }
