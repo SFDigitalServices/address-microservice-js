@@ -5,13 +5,10 @@ const { corsHandler, asyncJsonHandler, cacheHandler } = require('../../../lib/ha
 const axios = require('axios')
 
 module.exports = cacheHandler(corsHandler(asyncJsonHandler((req, res) => {
-  return doLookup(req.query)
+  return jsonQuery(req.query)
 })), EAS_REFRESH_TIME)
 
-async function doLookup (params) {
-  params.$where = `address like upper('${params.search}%') and parcel_number IS NOT NULL`
-  delete params.search
-
+async function jsonQuery (params) {
   const config = {
     params: params,
     headers: {
